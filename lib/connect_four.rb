@@ -9,12 +9,35 @@ class ConnectFour
     @player_turn = 1
   end
 
+  def game_loop
+    display_gameboard
+    
+    until validate_token_placement(gets.chomp.to_i) != nil
+      validate_token_placement(gets.chomp.to_i)
+    end
+  end
+
   def place_token(column)
-    if (1..7).include?(column)
-      @gameboard[column - 1][0] = 1 if @player_turn == 1
-      @gameboard[column - 1][0] = 2 if @player_turn == 0
+    first_empty_space = @gameboard[column - 1].index(0)
+    @player_turn == 1 ? @gameboard[column - 1][first_empty_space] = 1 : @gameboard[column - 1][first_empty_space] = 2
+  end
+
+  def display_gameboard
+    puts "#{@gameboard[0]}\n#{gameboard[1]}\n#{@gameboard[2]}\n#{gameboard[3]}\n#{@gameboard[4]}\n#{gameboard[5]}"
+  end
+  
+  def change_turn
+    @player_turn == 1 ? @player_turn = 0 : @player_turn = 1
+  end
+
+  def validate_token_placement(column)
+    if (1..7).include?(column) && @gameboard[column - 1].last == 0
+      column
     else
-      nil    
+      nil
     end
   end
 end
+
+test_game = ConnectFour.new
+test_game.game_loop
