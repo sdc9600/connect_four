@@ -2,19 +2,19 @@
 
 class ConnectFour
 
-  attr_accessor :gameboard, :player_turn
+  attr_accessor :gameboard, :player_turn, :last_token
 
   def initialize
     @gameboard = Array.new(6) {Array.new(7, 0)}
     @player_turn = 1
+    @last_token = [0,0]
   end
 
   def game_loop
     display_gameboard
-    
-    until validate_token_placement(gets.chomp.to_i) != nil
-      validate_token_placement(gets.chomp.to_i)
-    end
+  end
+
+  def check_victory?
   end
 
   def place_token(column)
