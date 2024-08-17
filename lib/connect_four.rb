@@ -15,6 +15,24 @@ class ConnectFour
   end
 
   def check_victory?
+    x = 0
+    horizontal_check = []
+    vertical_check = gameboard[last_token[0]]
+
+    until x == 6 do
+    horizontal_check.append(gameboard[x][0])
+    x += 1
+    end
+    p vertical_check
+    p horizontal_check
+    x = 0
+    flag = false
+    until vertical_check = []
+      flag = true if vertical_check[x..x+3] == [1,1,1,1]
+      x += 1
+      vertical_check.pop if x == 3
+    end
+    flag
   end
 
   def place_token(column)
