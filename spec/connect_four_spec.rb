@@ -75,7 +75,7 @@ end
       it 'Returns true when player has made four in a row vertically' do
         game.last_token = [0,4]
         game.gameboard[0] = [1, 1, 1, 1, 0, 0, 0]
-        expect(game.check_victory?).to be_true
+        expect(game.check_victory?).to be true
       end
       it 'Returns true when player has made four in a row horizontally' do
         game.last_token = [3,0]
@@ -83,7 +83,7 @@ end
         game.gameboard[3][0] = 1
         game.gameboard[4][0] = 1
         game.gameboard[5][0] = 1
-        expect(game.check_victory?).to be_true
+        expect(game.check_victory?).to be true
       end
       it 'Returns true when player has made four in a row diagonally' do
         game.last_token = [3,3]
@@ -91,7 +91,7 @@ end
         game.gameboard[1][1] = 1
         game.gameboard[2][2] = 1
         game.gameboard[3][3] = 1
-        expect(game.check_victory?).to be_true
+        expect(game.check_victory?).to be true
       end
     end
   end

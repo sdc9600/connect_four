@@ -11,28 +11,48 @@ class ConnectFour
   end
 
   def game_loop
+    column = 5
+    until check_victory? == true
     display_gameboard
+    until validate_token_placement(column) != nil do
+      column = gets.chomp!
+    end
+    end
   end
 
   def check_victory?
     x = 0
     horizontal_check = []
+    diagonal_check = []
+    diagonal_check2 = []
+    array_check = []
     vertical_check = gameboard[last_token[0]]
 
     until x == 6 do
     horizontal_check.append(gameboard[x][0])
     x += 1
     end
-    p vertical_check
-    p horizontal_check
-    x = 0
-    flag = false
-    until vertical_check = []
-      flag = true if vertical_check[x..x+3] == [1,1,1,1]
+    x = -3
+    until x == 3 do
+      diagonal_check.append(gameboard[last_token[0] + x][last_token[1] + x]) if last_token[0] + x >= 0 && last_token[1] + x >= 0 && last_token[0] + x <= 5 && last_token[1] + x <= 6
       x += 1
-      vertical_check.pop if x == 3
     end
-    flag
+    x = 3
+    until x == -3 do
+      diagonal_check2.append(gameboard[last_token[0] + x][last_token[1] + x]) if last_token[0] + x >= 0 && last_token[1] + x >= 0 && last_token[0] + x <= 5 && last_token[1] + x <= 6
+      x -= 1
+    end
+    array_check.append(horizontal_check, vertical_check, diagonal_check, diagonal_check2)
+    x = 0
+    until array_check == []
+      return true if array_check[0][x..(x+3)] == [1,1,1,1]
+      x += 1
+      if x == 3
+        array_check.delete_at(0)
+        x = 0
+      end  
+    end
+    false
   end
 
   def place_token(column)
@@ -58,4 +78,4 @@ class ConnectFour
 end
 
 test_game = ConnectFour.new
-test_game.game_loop
+#test_game.game_loop
