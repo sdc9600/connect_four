@@ -1,5 +1,3 @@
-# ConnectFour board has 6 columns and 7 rows.
-
 class ConnectFour
 
   attr_accessor :gameboard, :player_turn, :last_token
@@ -11,16 +9,15 @@ class ConnectFour
   end
 
   def game_loop
-    column = 5
     until check_victory? == true
-    display_gameboard
-    until validate_token_placement(column) != nil do
-      column = gets.chomp!
-    end
+    p display_gameboard
+    column = gets.to_i
+    place_token(column) if validate_token_placement(column) != nil
+    change_turn
     end
   end
 
-  def check_victory?
+  def build_arrays
     x = 0
     horizontal_check = []
     diagonal_check = []
@@ -43,6 +40,10 @@ class ConnectFour
       x -= 1
     end
     array_check.append(horizontal_check, vertical_check, diagonal_check, diagonal_check2)
+    array_check
+  end
+
+  def check_victory?(array_check = build_arrays)
     x = 0
     until array_check == []
       return true if array_check[0][x..(x+3)] == [1,1,1,1]
@@ -78,4 +79,4 @@ class ConnectFour
 end
 
 test_game = ConnectFour.new
-#test_game.game_loop
+test_game.game_loop

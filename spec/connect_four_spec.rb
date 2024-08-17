@@ -95,4 +95,11 @@ end
       end
     end
   end
+  describe '#build_arrays' do
+    context 'Ensure that the arrays are being built as expected prior to being checked by the check_victory? function' do
+      it 'Array length is set to 4' do
+        expect(game.build_arrays.length).to be 4
+      end
+    end
+  end 
 end
