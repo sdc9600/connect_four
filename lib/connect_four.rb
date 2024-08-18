@@ -9,12 +9,15 @@ class ConnectFour
   end
 
   def game_loop
-    until check_victory? == true
-    p display_gameboard
-    column = gets.to_i
-    place_token(column) if validate_token_placement(column) != nil
-    change_turn
+    until check_victory? == true do
+      display_gameboard
+      column = gets.to_i
+      place_token(column) if validate_token_placement(column) != nil
+      change_turn
     end
+    p display_gameboard
+    p "Player 2 has made four in a row and wins!" if @player_turn == 1
+    p "Player 1 has made four in a row and wins" if @player_turn == 0
   end
 
   def build_arrays
@@ -43,10 +46,12 @@ class ConnectFour
     array_check
   end
 
-  def check_victory?(array_check = build_arrays)
+  def check_victory?
+    array_check = build_arrays
     x = 0
     until array_check == []
       return true if array_check[0][x..(x+3)] == [1,1,1,1]
+      return true if array_check[0][x..(x+3)] == [2,2,2,2]
       x += 1
       if x == 3
         array_check.delete_at(0)
@@ -70,7 +75,7 @@ class ConnectFour
   end
 
   def validate_token_placement(column)
-    if (1..7).include?(column) && @gameboard[column - 1].last == 0
+    if (1..6).include?(column) && @gameboard[column - 1].last == 0
       column
     else
       nil
